@@ -1,0 +1,96 @@
+{
+	"compiler": {
+		"version": "0.8.17+commit.8df45f5f"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "bool",
+						"name": "success",
+						"type": "bool"
+					},
+					{
+						"indexed": false,
+						"internalType": "bytes",
+						"name": "data",
+						"type": "bytes"
+					}
+				],
+				"name": "Response",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_token_in",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_amount",
+						"type": "uint256"
+					}
+				],
+				"name": "transfer_token_to_contract",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/polygon/bauch.sol": "bauch"
+		},
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/polygon/bauch.sol": {
+			"keccak256": "0x1a2adc99e4225c027a8de3774a8781ae8795e4f033e88f64f35c26adc665f879",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://baede8bcd021d91875389fdc3c178782279643912e738ef9de94b9d4d6f80431",
+				"dweb:/ipfs/QmeNAjun8yps2EpQftsRMcRdqf3LdtgvU5GLK4fCbgU5V9"
+			]
+		},
+		"contracts/polygon/interfaces.sol": {
+			"keccak256": "0x5eda54d378f4f447ed6e39ef56660b401ece64bd282596c81f7ededb699ce60e",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://2d0b07fd65e9702eec2b82b11b2ca5973f747a1dd10f89e6de7bb3d6a645900c",
+				"dweb:/ipfs/QmZN4SmJLcjnC6QE7xyTF7jUhAg5J9G5rivWqWaDKcMqjH"
+			]
+		}
+	},
+	"version": 1
+}

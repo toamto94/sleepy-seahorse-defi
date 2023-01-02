@@ -1,0 +1,80 @@
+{
+	"compiler": {
+		"version": "0.8.8+commit.dddeac2f"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"name": "get",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "x",
+						"type": "uint256"
+					}
+				],
+				"name": "set",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/polygon/SimpleStorage.sol": "SimpleStorage"
+		},
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/polygon/SimpleStorage.sol": {
+			"keccak256": "0xb4013b573115037d55ab66c7e55a80c28ff079b02c2dcb681491e2ae54017e34",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://b890decdd2234f359e2ed49a50c009c9d1df24f6e2775f22a61a650ec0255117",
+				"dweb:/ipfs/QmSw25LSCQAKcvz4gUTasib7B8sd3ggZbT7s8gdcbfFRto"
+			]
+		},
+		"contracts/polygon/interfaces.sol": {
+			"keccak256": "0xb065d613c6ad949ea4f4ab0fedeaec4cf12b3bed6f60260c09bd8880e0527541",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://732d483621bd77ed3dfa58cc96f3f975110eeeabdb528f3a057b98cca145e8ab",
+				"dweb:/ipfs/QmaQqTT9QFRXX2AwrSUARmABzB6kAdBvVimGdQAGFypvkj"
+			]
+		}
+	},
+	"version": 1
+}
