@@ -12,6 +12,14 @@ contract bauch {
   address constant USDT = 0xc2132D05D31c914a87C6611C10748AEb04B58e8F;
   address constant CURVE_3POOL = 0x445FE580eF8d70FF569aB36e80c647af338db351;
   address constant UniswapV2Router02 = 0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff;
+  address constant CURVE_3POOL_LP = 0xE7a24EF0C5e95Ffb0f6684b813A78F2a3AD7D171;
+  address constant CURVE_USDR3POOL = 0xa138341185a9D0429B0021A11FB717B225e13e1F;
+  address constant RUSD = 0xb5DFABd7fF7F83BAB83995E72A52B97ABb7bcf63;
+
+  uint256 deposit;
+  mapping(address => uint256) user_deposit;
+
+  uint256 contract_curve3pool_deposit;
 
   constructor() {
 
@@ -32,9 +40,21 @@ contract bauch {
 
   function swap_to_stable_to_curve3(uint256 _amount) external {
     iERC20(USDC).transferFrom(msg.sender, address(this), _amount);
-    uint256 fraction = _amount / 4;
-    iERC20(USDC).approve(CURVE_3POOL, _amount); 
-    iCurveFactory(CURVE_3POOL).exchange_underlying(1, 0, fraction, 1);
+    iERC20(USDC).approve(CURVE_3POOL, _amount);
+    uint256[3] memory _amounts;
+    _amounts[0] = 0;
+    _amounts[1] = _amount;
+    _amounts[2] = 0;
+    iCurveFactory(CURVE_3POOL).add_liquidity(_amounts, 1, true);
+    uint256 liquidity_amount = iCurve3PoolLp(CURVE_3POOL_LP).balanceOf(address(this));
+    iCurve3PoolLp(CURVE_3POOL_LP).approve(CURVE_USDR3POOL, liquidity_amount);
+    iCurveUSDR3Pool(CURVE_USDR3POOL).exchange(1, 0, liquidity_amount / 2, 1);
+    uint256 rusd_amount = iERC20(RUSD).balanceOf(address(this));
+    uint256[2] memory _amounts2;
+    _amounts2[0] = rusd_amount;
+    _amounts2[1] = liquidity_amount / 2;
+    iERC20(RUSD).approve(CURVE_USDR3POOL, rusd_amount);
+    iCurveUSDR3Pool(CURVE_USDR3POOL).add_liquidity(_amounts2, 1);
   }
 
     //developer function to get WMATIC to an address for testing reasons
