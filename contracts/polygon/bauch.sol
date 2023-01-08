@@ -13,8 +13,9 @@ contract bauch {
   address constant CURVE_3POOL = 0x445FE580eF8d70FF569aB36e80c647af338db351;
   address constant UniswapV2Router02 = 0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff;
   address constant CURVE_3POOL_LP = 0xE7a24EF0C5e95Ffb0f6684b813A78F2a3AD7D171;
-  address constant CURVE_USDR3POOL = 0xa138341185a9D0429B0021A11FB717B225e13e1F;
-  address constant RUSD = 0xb5DFABd7fF7F83BAB83995E72A52B97ABb7bcf63;
+  address constant EURTUSD_POOL = 0xB446BF7b8D6D4276d0c75eC0e3ee8dD7Fe15783A;
+  address constant EURTUSD_LP = 0x600743B1d8A96438bD46836fD34977a00293f6Aa;
+  address constant EURT = 0x7BDF330f423Ea880FF95fC41A280fD5eCFD3D09f;
 
   uint256 public deposit;
   mapping(address => uint256) user_deposit;
@@ -44,20 +45,21 @@ contract bauch {
     _amount_3pool[1] = _amount;
     _amount_3pool[2] = 0;
     uint256 liquidity_amount = iCurve3Pool(CURVE_3POOL).add_liquidity(_amount_3pool, 1, true);
-    iCurve3PoolLp(CURVE_3POOL_LP).approve(CURVE_USDR3POOL, liquidity_amount);
-    uint256 rusd_amount = iCurveUSDR3Pool(CURVE_USDR3POOL).exchange(1, 0, liquidity_amount / 2, 1);
-    uint256[2] memory _amounts_RUSD3Pool;
-    _amounts_RUSD3Pool[0] = rusd_amount;
-    _amounts_RUSD3Pool[1] = liquidity_amount / 2;
-    iERC20(RUSD).approve(CURVE_USDR3POOL, rusd_amount);
-    user_deposit[msg.sender] += iCurveUSDR3Pool(CURVE_USDR3POOL).add_liquidity(_amounts_RUSD3Pool, 1);
+    iERC20(CURVE_3POOL_LP).approve(EURTUSD_POOL, liquidity_amount);
+    uint256[2] memory _amounts_EURTPool;
+    _amounts_EURTPool[0] = 0;
+    _amounts_EURTPool[1] = liquidity_amount;
+    user_deposit[msg.sender] += iTEURUSDPool(EURTUSD_POOL).add_liquidity(_amounts_EURTPool, 1);
   }
 
   function withdraw_user_deposit(uint256 _amount) external {
-    iCurveUSDR3Pool(CURVE_USDR3POOL).approve(CURVE_USDR3POOL, _amount);
-    uint256 curve_3pool_amount = iCurveUSDR3Pool(CURVE_USDR3POOL).remove_liquidity_one_coin(_amount, 1, 1);
-    iCurve3PoolLp(CURVE_3POOL_LP).approve(CURVE_3POOL, curve_3pool_amount);
-    //uint256 withdraw_amount = iCurve3Pool(CURVE_3POOL).remove_liquidity_one_coin(curve_3pool_amount, 2, 1);
+    iERC20(EURTUSD_LP).approve(EURTUSD_POOL, _amount);
+    uint256 curve_3pool_amount = iTEURUSDPool(EURTUSD_POOL).remove_liquidity_one_coin(_amount, 1, 1);
+    iERC20(CURVE_3POOL_LP).approve(CURVE_3POOL, curve_3pool_amount);
+    uint256 stable_amount = iCurve3Pool(CURVE_3POOL).remove_liquidity_one_coin(curve_3pool_amount, 2, 1, true);
+    user_deposit[msg.sender] -= _amount;
+    iERC20(USDT).transfer(msg.sender, stable_amount);
+
 
 
 
