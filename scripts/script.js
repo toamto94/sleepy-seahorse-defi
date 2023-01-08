@@ -1,5 +1,5 @@
 import iERC20 from 'build/polygon-contracts/iERC20.json'
-import iCurveFactory from 'build/polygon-contracts/iCurveFactory.json'
+import iCurve3Pool from 'build/polygon-contracts/iCurve3Pool.json'
 import iUniswapV2Router2 from 'build/polygon-contracts/IUniswapV2Router02.json'
 import iCurve3PoolLP from 'build/polygon-contracts/iCurve3PoolLP.json'
 import iCurveUSDR3Pool from 'build/polygon-contracts/iCurveUSDR3Pool.json'
@@ -18,7 +18,7 @@ import iCurveUSDR3Pool from 'build/polygon-contracts/iCurveUSDR3Pool.json'
     const dai_address = "0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063"
     const router_address = "0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff"
     const usdc_address = "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174"
-    const curve_factory_address = "0x445FE580eF8d70FF569aB36e80c647af338db351"
+    const curve_3pool_address = "0x445FE580eF8d70FF569aB36e80c647af338db351"
     const usdt_address = "0xc2132D05D31c914a87C6611C10748AEb04B58e8F"
     const curve_3pool_lp_address = "0xE7a24EF0C5e95Ffb0f6684b813A78F2a3AD7D171"
     const curve_USDR3pool_address = "0xa138341185a9D0429B0021A11FB717B225e13e1F"
@@ -28,7 +28,7 @@ import iCurveUSDR3Pool from 'build/polygon-contracts/iCurveUSDR3Pool.json'
     const wmatic = await getContract(wmatic_address, iERC20.abi)
     const usdc = await getContract(usdc_address, iERC20.abi)
     const rusd = await getContract(rusd_address, iERC20.abi)
-    const curve_factory = await getContract(curve_factory_address, iCurveFactory.abi)
+    const curve_3pool = await getContract(curve_3pool_address, iCurve3Pool.abi)
     const router = await getContract(router_address, iUniswapV2Router2.abi)
     const usdt = await getContract(usdt_address, iERC20.abi)
     const curve_3pool_lp = await getContract(curve_3pool_lp_address, iCurve3PoolLP.abi)
@@ -75,24 +75,44 @@ import iCurveUSDR3Pool from 'build/polygon-contracts/iCurveUSDR3Pool.json'
       gasPrice: '30000000000'
     })
 
-    await newContractInstance.methods.swap_to_stable_to_curve3(usdc_balance_appprove).send({
+    await newContractInstance.methods.add_user_deposit(usdc_balance_appprove).send({
       from: accounts[0],
       gas: 3100000,
       gasPrice: '30000000000'
     })
 
-    const usdc_balance = await usdc.methods.balanceOf(newContractInstance.options.address).call()
+    let usdc_balance = await usdc.methods.balanceOf(newContractInstance.options.address).call()
     console.log("USDC: " + usdc_balance)
-    const dai_balance = await dai.methods.balanceOf(newContractInstance.options.address).call()
+    let dai_balance = await dai.methods.balanceOf(newContractInstance.options.address).call()
     console.log("DAI: " + dai_balance)
-    const usdt_balance = await usdt.methods.balanceOf(newContractInstance.options.address).call()
+    let usdt_balance = await usdt.methods.balanceOf(newContractInstance.options.address).call()
     console.log("USDT: " + usdt_balance)
-    const curve_3pool_lp_balance = await curve_3pool_lp.methods.balanceOf(newContractInstance.options.address).call()
+    let curve_3pool_lp_balance = await curve_3pool_lp.methods.balanceOf(newContractInstance.options.address).call()
     console.log("CURVE3POOL: " + curve_3pool_lp_balance)
-    const rusd_balance = await rusd.methods.balanceOf(newContractInstance.options.address).call()
+    let rusd_balance = await rusd.methods.balanceOf(newContractInstance.options.address).call()
     console.log("RUSDC: " + rusd_balance)
-    const curve_USDR3pool_balance = await curve_USDR3pool.methods.balanceOf(newContractInstance.options.address).call()
+    let curve_USDR3pool_balance = await curve_USDR3pool.methods.balanceOf(newContractInstance.options.address).call()
     console.log("RUSD + CURVE3 POOL: " + curve_USDR3pool_balance)
+    console.log("------------ WITHDRAW ------------")
+
+    await newContractInstance.methods.withdraw_user_deposit(curve_USDR3pool_balance).send({
+      from: accounts[0],
+      gas: 3100000,
+      gasPrice: '30000000000'
+    })
+
+    curve_USDR3pool_balance = await curve_USDR3pool.methods.balanceOf(newContractInstance.options.address).call()
+    console.log("RUSD + CURVE3 POOL: " + curve_USDR3pool_balance)
+    curve_3pool_lp_balance = await curve_3pool_lp.methods.balanceOf(newContractInstance.options.address).call()
+    console.log("CURVE3POOL: " + curve_3pool_lp_balance)
+    rusd_balance = await rusd.methods.balanceOf(newContractInstance.options.address).call()
+    console.log("RUSDC: " + rusd_balance)
+    usdt_balance = await usdt.methods.balanceOf(newContractInstance.options.address).call()
+    console.log("USDT: " + usdt_balance)
+    usdc_balance = await usdc.methods.balanceOf(newContractInstance.options.address).call()
+    console.log("USDC: " + usdc_balance)
+    dai_balance = await dai.methods.balanceOf(newContractInstance.options.address).call()
+    console.log("DAI: " + dai_balance)
 
     
   } catch (e) {

@@ -54,7 +54,8 @@
 			"balances(uint256)": "4903b0d1",
 			"coins(uint256)": "c6610657",
 			"exchange_underlying(int128,int128,uint256,uint256)": "a6417ed6",
-			"lp_token()": "82c63066"
+			"lp_token()": "82c63066",
+			"remove_liquidity_one_coin(uint256,int128,uint256)": "1a4d01d2"
 		}
 	},
 	"abi": [
@@ -183,6 +184,35 @@
 				}
 			],
 			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "_burn_amount",
+					"type": "uint256"
+				},
+				{
+					"internalType": "int128",
+					"name": "i",
+					"type": "int128"
+				},
+				{
+					"internalType": "uint256",
+					"name": "_min_received",
+					"type": "uint256"
+				}
+			],
+			"name": "remove_liquidity_one_coin",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "nonpayable",
 			"type": "function"
 		}
 	]

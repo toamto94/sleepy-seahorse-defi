@@ -131,6 +131,35 @@
 				],
 				"stateMutability": "view",
 				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_burn_amount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "int128",
+						"name": "i",
+						"type": "int128"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_min_received",
+						"type": "uint256"
+					}
+				],
+				"name": "remove_liquidity_one_coin",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -161,11 +190,11 @@
 	},
 	"sources": {
 		"contracts/polygon/interfaces.sol": {
-			"keccak256": "0xc97d5bee0faa3c2b7ba285f0d9e59fb8a2969a6d35ffb23205364ea8ebf62597",
+			"keccak256": "0xc4159d9cfa9b9d19505861a4d569fd81b61e2ce0ea8bc3a27eece6bc83f2115f",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://6a55c2b85e1689e5775943552b2ae27a54646af5735fa9c044f4be00d8fb427e",
-				"dweb:/ipfs/Qma1wxMRw5m5BbSTYAvP4WAkfy7GYBsczkQAXPsNwnycuo"
+				"bzz-raw://e2555d2b87eef06dc74b635aededc6024107755722d1d72089f15564ecc7752e",
+				"dweb:/ipfs/QmVk8LkVYTvxf7gK6sJqkNFea72eSn58yxDJTSQyo2tnpz"
 			]
 		}
 	},

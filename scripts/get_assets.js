@@ -1,6 +1,8 @@
 import iERC20 from 'build/polygon-contracts/iERC20.json'
-import iCurveFactory from 'build/polygon-contracts/iCurveFactory.json'
+import iCurve3Pool from 'build/polygon-contracts/iCurve3Pool.json'
 import iUniswapV2Router2 from 'build/polygon-contracts/IUniswapV2Router02.json'
+import iCurve3PoolLP from 'build/polygon-contracts/iCurve3PoolLP.json'
+import iCurveUSDR3Pool from 'build/polygon-contracts/iCurveUSDR3Pool.json'
 
 (async () => {
   try {
@@ -16,15 +18,21 @@ import iUniswapV2Router2 from 'build/polygon-contracts/IUniswapV2Router02.json'
     const dai_address = "0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063"
     const router_address = "0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff"
     const usdc_address = "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174"
-    const curve_factory_address = "0x445FE580eF8d70FF569aB36e80c647af338db351"
+    const curve_3pool_address = "0x445FE580eF8d70FF569aB36e80c647af338db351"
     const usdt_address = "0xc2132D05D31c914a87C6611C10748AEb04B58e8F"
+    const curve_3pool_lp_address = "0xE7a24EF0C5e95Ffb0f6684b813A78F2a3AD7D171"
+    const curve_USDR3pool_address = "0xa138341185a9D0429B0021A11FB717B225e13e1F"
+    const rusd_address = "0xb5DFABd7fF7F83BAB83995E72A52B97ABb7bcf63"
 
     const dai = await getContract(dai_address, iERC20.abi)
     const wmatic = await getContract(wmatic_address, iERC20.abi)
     const usdc = await getContract(usdc_address, iERC20.abi)
-    const curve_factory = await getContract(curve_factory_address, iCurveFactory.abi)
+    const rusd = await getContract(rusd_address, iERC20.abi)
+    const curve_3pool = await getContract(curve_3pool_address, iCurve3Pool.abi)
     const router = await getContract(router_address, iUniswapV2Router2.abi)
     const usdt = await getContract(usdt_address, iERC20.abi)
+    const curve_3pool_lp = await getContract(curve_3pool_lp_address, iCurve3PoolLP.abi)
+    const curve_USDR3pool = await getContract(curve_USDR3pool_address, iCurveUSDR3Pool.abi)
     let contract = new web3.eth.Contract(metadata.abi)
 
     contract = contract.deploy({
